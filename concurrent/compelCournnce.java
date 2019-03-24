@@ -6,15 +6,21 @@ public class compelCournnce {
         Thread thread=new Thread(()->{
                 for(int i=0;i<100;i++)
                 {
-                    if(i>3)
+                    //线程强制执行
+//                    if(i>3)
+//                    {
+//                        try
+//                        {
+//                            ma.join();
+//                        }catch (InterruptedException e)
+//                        {
+//                            e.printStackTrace();
+//                        }
+//                    }
+                    if(i%3==0)
                     {
-                        try
-                        {
-                            ma.join();
-                        }catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
+                        Thread.yield();//礼让执行
+                        System.out.println("*****子线程礼让*****");
                     }
                     try
                     {
