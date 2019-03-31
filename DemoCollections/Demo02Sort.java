@@ -10,6 +10,10 @@ import java.util.Collections;
  *
  * 注：
  * 对于自定义类型排序，必须继承重写Comparable接口
+ *
+ * Comparable接口排序规则:
+ * 自己（this）-参数：升序；
+ * 参数-（自己this）：降序;
  */
 
 public class Demo02Sort {
