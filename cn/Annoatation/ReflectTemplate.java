@@ -1,36 +1,50 @@
-package cn.Reflect;
+package cn.Annoatation;
 
-import java.io.InputStream;
-import java.util.Properties;
+
 import java.lang.reflect.Method;
 
+@Properfile(className = "cn.Annoatation.DemoClass",classMethod = "show")
 public class ReflectTemplate {
     public static void main(String[] args)throws Exception {
         /**
          * 创建任意类对象，执行任意方法
          */
 
-        //1.加载配置文件
-        //创建Properties对象
-        Properties properties=new Properties();
+        /*
+        解析注解
+        获取该类字节码文件对象
+         */
+        Class<ReflectTemplate> reflectTemplateClass=ReflectTemplate.class;
+        /*
+        获取注解对象
+        其实就是在内存中生成了一个该注解接口的子类实现对象
 
-        //加载配置文件，转换为一个集合
-        //获取class目录下的配置文件
-        ClassLoader classLoader=ReflectTemplate.class.getClassLoader();//获取类加载器,将类加载进内存
-        InputStream inputStream=classLoader.getResourceAsStream("cn//pro.properties");//使用类加载器加载配置文件
-        properties.load(inputStream);
+        public class ProImpl implements Properfile{
+            public String className()
+            {
+                return "cn.Annoatation.DemoClass";
+            }
+            public String classMethod()
+            {
+                return "show"
+            }
+        }
+         */
+        Properfile pro=reflectTemplateClass.getAnnotation(Properfile.class);
+        //调用注解对象中定义的抽象方法，获取返回值
+        String className=pro.className();
+        String classMethod=pro.classMethod();
 
-        //获取配置文件中定义的数据
-        String className=properties.getProperty("className");
-        String methodName=properties.getProperty("methodName");
-
-        //加载该类的内存
+        //加载类至内存
         Class cla=Class.forName(className);
+
         //创建对象
         Object obj=cla.newInstance();
-        //获取方法对象
-        Method method=cla.getMethod(methodName);
-        //执行方法
+
+        //获取对象方法
+        Method method=cla.getMethod(classMethod);
+
         method.invoke(obj);
+
     }
 }

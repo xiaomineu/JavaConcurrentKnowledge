@@ -1,4 +1,4 @@
-package Junit;
+package cn.itcast.junit;
 
 public class Calculate {
 
